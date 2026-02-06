@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>MathSpace - Portal Belajar</title>
+    <title>MathSpace - Portal Belajar Modern</title>
 
     <link
       href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
@@ -14,26 +14,31 @@
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
     />
     <link
-      href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap"
       rel="stylesheet"
     />
 
     <style>
-      /* --- GLOBAL STYLE --- */
+      :root {
+        --primary: #4f46e5;
+        --secondary: #0ea5e9;
+        --bg-color: #f3f4f6;
+      }
+
       body {
-        font-family: "Nunito", sans-serif;
-        background-color: #f8fafc;
+        font-family: "Poppins", sans-serif;
+        background-color: var(--bg-color);
         overflow-x: hidden;
       }
 
-      /* Menyembunyikan halaman lain, hanya menampilkan yang aktif */
-      .page-section {
-        display: none;
-        animation: fadeIn 0.5s;
+      /* --- ANIMATIONS --- */
+      .fade-in {
+        animation: fadeIn 0.6s ease-in-out;
       }
-      .page-section.active {
-        display: block;
+      .slide-up {
+        animation: slideUp 0.5s ease-out;
       }
+
       @keyframes fadeIn {
         from {
           opacity: 0;
@@ -42,478 +47,633 @@
           opacity: 1;
         }
       }
+      @keyframes slideUp {
+        from {
+          transform: translateY(20px);
+          opacity: 0;
+        }
+        to {
+          transform: translateY(0);
+          opacity: 1;
+        }
+      }
 
-      /* --- LOGIN STYLE --- */
+      /* --- GLASSMORPHISM --- */
+      .glass {
+        background: rgba(255, 255, 255, 0.85);
+        backdrop-filter: blur(10px);
+        -webkit-backdrop-filter: blur(10px);
+        border: 1px solid rgba(255, 255, 255, 0.3);
+      }
+
+      /* --- LOGIN PAGE --- */
       .login-bg {
-        background: linear-gradient(135deg, #0ea5e9, #2563eb);
+        background: linear-gradient(135deg, var(--primary), var(--secondary));
         height: 100vh;
         display: flex;
         align-items: center;
         justify-content: center;
+        position: relative;
+        overflow: hidden;
       }
+      /* Hiasan Bulat di Background Login */
+      .circle {
+        position: absolute;
+        border-radius: 50%;
+        background: rgba(255, 255, 255, 0.1);
+      }
+      .c1 {
+        width: 300px;
+        height: 300px;
+        top: -50px;
+        left: -50px;
+      }
+      .c2 {
+        width: 400px;
+        height: 400px;
+        bottom: -100px;
+        right: -100px;
+      }
+
       .login-card {
-        background: white;
-        border-radius: 20px;
-        box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
+        background: rgba(255, 255, 255, 0.95);
+        border-radius: 25px;
+        box-shadow: 0 25px 50px rgba(0, 0, 0, 0.15);
         padding: 40px;
         width: 100%;
-        max-width: 400px;
+        max-width: 420px;
         text-align: center;
+        z-index: 10;
       }
-      .login-logo-img {
-        width: 150px;
-        height: auto;
-        margin-bottom: 10px;
-        object-fit: contain;
+      .login-logo {
+        width: 140px;
+        margin-bottom: 15px;
         mix-blend-mode: multiply;
       }
 
-      /* --- DASHBOARD STYLE --- */
+      /* --- DASHBOARD --- */
       .navbar {
-        background-color: white;
+        background: white;
         padding: 15px 0;
         box-shadow: 0 4px 20px rgba(0, 0, 0, 0.03);
       }
-      .logo-nav {
-        height: 45px;
-        width: auto;
-        mix-blend-mode: multiply;
-      }
-      .hero-section {
-        background: #e0f2fe;
+      .hero-card {
+        background: linear-gradient(120deg, #e0c3fc 0%, #8ec5fc 100%);
         border-radius: 30px;
         padding: 50px;
         margin-top: 30px;
         position: relative;
         overflow: hidden;
-      }
-      .hero-title {
-        font-size: 2.5rem;
-        font-weight: 900;
-        color: #0f172a;
-        margin-bottom: 20px;
+        color: #333;
       }
       .subject-card {
-        background: white;
         border-radius: 20px;
         padding: 25px;
+        cursor: pointer;
+        transition: 0.3s;
+        border: 1px solid transparent;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+        background: white;
         display: flex;
         align-items: center;
         gap: 20px;
-        cursor: pointer;
-        border: 2px solid transparent;
-        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.03);
-        transition: 0.3s;
       }
       .subject-card:hover {
-        border-color: #3b82f6;
-        transform: translateY(-5px);
-        box-shadow: 0 15px 30px rgba(59, 130, 246, 0.1);
-      }
-      .icon-box {
-        width: 60px;
-        height: 60px;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        border-radius: 15px;
-        font-size: 1.8rem;
+        transform: translateY(-8px);
+        border-color: var(--secondary);
+        box-shadow: 0 20px 40px rgba(14, 165, 233, 0.15);
       }
 
-      /* --- MATERI PAGE STYLE --- */
+      /* --- BELAJAR PAGE --- */
       .nav-pills .nav-link {
         border-radius: 50px;
-        padding: 8px 25px;
-        font-weight: 700;
+        padding: 10px 30px;
+        font-weight: 600;
         color: #64748b;
         background: white;
-        border: 1px solid #e2e8f0;
         margin: 0 5px;
-        cursor: pointer;
+        transition: 0.3s;
+        border: 1px solid #e2e8f0;
       }
       .nav-pills .nav-link.active {
-        background-color: #3b82f6;
+        background-color: var(--primary);
         color: white;
-        border-color: #3b82f6;
+        border-color: var(--primary);
+        box-shadow: 0 4px 15px rgba(79, 70, 229, 0.3);
+        transform: scale(1.05);
       }
       .content-card {
-        background: white;
         border-radius: 20px;
         padding: 30px;
         margin-bottom: 25px;
         box-shadow: 0 5px 20px rgba(0, 0, 0, 0.05);
-      }
-      .video-container {
-        position: relative;
-        padding-bottom: 56.25%;
-        height: 0;
-        overflow: hidden;
-        border-radius: 15px;
-        background: #000;
-      }
-      .video-container iframe {
-        position: absolute;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        border: 0;
+        border: none;
       }
 
-      /* Helper Classes */
-      .tab-content {
+      /* --- UTILS --- */
+      .page-section {
         display: none;
       }
-      .tab-content.active {
+      .page-section.active {
         display: block;
       }
-
-      @media (max-width: 768px) {
-        .hero-section img {
-          display: none;
+      .loader {
+        display: none;
+        width: 24px;
+        height: 24px;
+        border: 3px solid #fff;
+        border-bottom-color: transparent;
+        border-radius: 50%;
+        animation: rotation 1s linear infinite;
+        margin: 0 auto;
+      }
+      @keyframes rotation {
+        0% {
+          transform: rotate(0deg);
         }
+        100% {
+          transform: rotate(360deg);
+        }
+      }
+
+      /* Toast Notification */
+      .toast-custom {
+        position: fixed;
+        top: 20px;
+        right: 20px;
+        background: #333;
+        color: white;
+        padding: 12px 25px;
+        border-radius: 50px;
+        z-index: 9999;
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        transform: translateX(150%);
+        transition: 0.5s;
+      }
+      .toast-custom.show {
+        transform: translateX(0);
       }
     </style>
   </head>
   <body>
-    <div id="page-login" class="page-section active">
+    <div id="toast" class="toast-custom">
+      <i class="fas fa-check-circle me-2"></i>
+      <span id="toastMsg">Berhasil!</span>
+    </div>
+
+    <div id="page-login" class="page-section active fade-in">
       <div class="login-bg">
-        <div class="login-card">
-          <div class="mb-2">
-            <img src="logo.png" alt="MathSpace" class="login-logo-img" />
-          </div>
-          <p class="text-muted mb-4 small fw-bold">
-            Portal Belajar Matematika Terpadu
+        <div class="circle c1"></div>
+        <div class="circle c2"></div>
+
+        <div class="login-card slide-up">
+          <img src="logo.png" alt="MathSpace" class="login-logo" />
+          <h4 class="fw-bold mb-1">Selamat Datang!</h4>
+          <p class="text-muted small mb-4">
+            Silakan masuk untuk mulai belajar.
           </p>
 
           <form
             onsubmit="
               event.preventDefault();
-              prosesLogin();
+              simulasiLogin();
             "
           >
-            <div class="mb-3 text-start">
+            <div class="form-floating mb-3">
               <input
                 type="text"
+                class="form-control rounded-4"
                 id="username"
-                class="form-control"
-                placeholder="Username (bebas)"
+                placeholder="Username"
                 required
               />
+              <label for="username">Username</label>
             </div>
-            <div class="mb-3 text-start">
+            <div class="form-floating mb-4">
               <input
                 type="password"
+                class="form-control rounded-4"
                 id="password"
-                class="form-control"
-                placeholder="Password (bebas)"
+                placeholder="Password"
                 required
               />
+              <label for="password">Password</label>
             </div>
             <button
               type="submit"
-              class="btn btn-primary w-100 rounded-pill fw-bold py-2"
+              id="btnLogin"
+              class="btn btn-primary w-100 rounded-pill py-3 fw-bold shadow-sm"
             >
-              MASUK SEKARANG
+              <span id="btnText">MASUK SEKARANG</span>
+              <span class="loader" id="loader"></span>
             </button>
           </form>
-          <div class="mt-4 text-muted small fw-bold">
-            Demo Mode: Langsung klik masuk saja.
+          <div class="mt-4 text-muted small">
+            Belum punya akun?
+            <a href="#" class="text-primary fw-bold text-decoration-none"
+              >Daftar Gratis</a
+            >
           </div>
         </div>
       </div>
     </div>
 
-    <div id="page-dashboard" class="page-section">
-      <nav class="navbar navbar-expand-lg sticky-top">
+    <div id="page-dashboard" class="page-section fade-in">
+      <nav class="navbar navbar-expand-lg glass sticky-top">
         <div class="container">
-          <a class="navbar-brand" href="#" onclick="pindahHalaman('dashboard')">
-            <img src="logo.png" alt="MathSpace" class="logo-nav" />
-          </a>
-          <button
-            class="navbar-toggler border-0"
-            type="button"
-            data-bs-toggle="collapse"
-            data-bs-target="#navDash"
+          <a
+            class="navbar-brand d-flex align-items-center gap-2"
+            href="#"
+            onclick="pindahHalaman('dashboard')"
           >
-            <span class="navbar-toggler-icon"></span>
-          </button>
-          <div class="collapse navbar-collapse" id="navDash">
-            <ul class="navbar-nav mx-auto">
-              <li class="nav-item">
-                <a class="nav-link fw-bold text-primary" href="#">Beranda</a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link fw-bold text-muted" href="#kelas-section"
-                  >Kelas</a
-                >
-              </li>
-            </ul>
-            <div class="d-flex align-items-center gap-3">
-              <span class="fw-bold text-dark"
-                >Halo, <span id="namaUser">Siswa</span>!</span
-              >
+            <img src="logo.png" alt="Logo" style="height: 40px" />
+            <span class="fw-bold text-primary">MathSpace</span>
+          </a>
+
+          <div class="d-none d-md-block flex-grow-1 mx-5">
+            <div class="input-group">
+              <span
+                class="input-group-text bg-light border-0 rounded-start-pill ps-3"
+                ><i class="fas fa-search text-muted"></i
+              ></span>
+              <input
+                type="text"
+                id="searchInput"
+                onkeyup="cariMateri()"
+                class="form-control bg-light border-0 rounded-end-pill"
+                placeholder="Cari materi pelajaran..."
+              />
+            </div>
+          </div>
+
+          <div class="d-flex align-items-center gap-3">
+            <div class="dropdown">
               <button
-                onclick="logout()"
-                class="btn btn-danger btn-sm rounded-pill px-3 fw-bold"
+                class="btn btn-light rounded-circle shadow-sm"
+                data-bs-toggle="dropdown"
+                style="width: 45px; height: 45px"
               >
-                Logout
+                <i class="fas fa-user text-primary"></i>
               </button>
+              <ul
+                class="dropdown-menu dropdown-menu-end shadow border-0 p-2 mt-2"
+                style="border-radius: 15px"
+              >
+                <li>
+                  <h6 class="dropdown-header">
+                    Halo, <span id="namaUser">User</span>!
+                  </h6>
+                </li>
+                <li><hr class="dropdown-divider" /></li>
+                <li>
+                  <a class="dropdown-item rounded" href="#" onclick="logout()"
+                    ><i class="fas fa-sign-out-alt text-danger me-2"></i>
+                    Logout</a
+                  >
+                </li>
+              </ul>
             </div>
           </div>
         </div>
       </nav>
 
-      <div class="container">
-        <div class="hero-section">
+      <div class="container pb-5">
+        <div class="hero-card slide-up">
           <div class="row align-items-center">
             <div class="col-md-7">
               <span
                 class="badge bg-white text-primary fw-bold px-3 py-2 mb-3 shadow-sm rounded-pill"
-                >E-Learning Terbaik</span
+                ><i class="fas fa-star text-warning"></i> Platform #1</span
               >
-              <h1 class="hero-title">Belajar Matematika Jadi Lebih Seru!</h1>
-              <p class="text-muted fs-5 mb-4">
-                Akses materi lengkap, video interaktif, dan latihan soal untuk
-                Kelas 7, 8, dan 9 SMP.
+              <h1 class="fw-bolder mb-3">
+                Matematika Jadi Mudah & Menyenangkan!
+              </h1>
+              <p class="fs-5 mb-4 opacity-75">
+                Akses ribuan materi, video interaktif, dan kuis latihan kapan
+                saja.
               </p>
               <a
-                href="#kelas-section"
-                class="btn btn-primary btn-lg rounded-pill px-5 fw-bold shadow"
-                >Mulai Belajar</a
-              >
+                href="#kelas-area"
+                class="btn btn-light text-primary rounded-pill px-5 py-3 fw-bold shadow-sm"
+                >Mulai Belajar <i class="fas fa-arrow-right ms-2"></i
+              ></a>
             </div>
-            <div class="col-md-5 text-end">
+            <div class="col-md-5 d-none d-md-block text-end">
               <img
                 src="https://img.freepik.com/free-psd/3d-illustration-female-student-reading-book_23-2149436194.png"
-                class="img-fluid"
-                style="max-height: 300px"
+                style="
+                  max-height: 280px;
+                  filter: drop-shadow(0 10px 10px rgba(0, 0, 0, 0.1));
+                "
                 alt="Maskot"
               />
             </div>
           </div>
         </div>
 
-        <div id="kelas-section" class="pt-5 pb-5">
+        <div id="kelas-area" class="mt-5">
           <h4 class="fw-bold mb-4 text-dark">
-            <i class="fas fa-th-large text-primary me-2"></i> Pilih Kelas Kamu
+            <i class="fas fa-th-large text-primary me-2"></i> Pilih Kelas
           </h4>
-          <div class="row g-4">
-            <div class="col-md-4">
-              <div onclick="bukaKelas('7')" class="subject-card">
+          <div class="row g-4" id="listKelas">
+            <div
+              class="col-md-4 item-kelas"
+              data-name="kelas 7 aljabar bilangan"
+            >
+              <div onclick="bukaKelas('7')" class="subject-card h-100">
                 <div
-                  class="icon-box"
-                  style="background: #dbeafe; color: #2563eb"
+                  class="icon-box bg-primary bg-opacity-10 text-primary p-3 rounded-4"
                 >
-                  <i class="fas fa-calculator"></i>
+                  <i class="fas fa-calculator fa-2x"></i>
                 </div>
                 <div>
                   <h5 class="fw-bold m-0">Kelas 7</h5>
-                  <small class="text-muted fw-bold">Aljabar & Bilangan</small>
+                  <small class="text-muted">Aljabar & Bilangan</small>
                 </div>
+                <i class="fas fa-chevron-right ms-auto text-muted"></i>
               </div>
             </div>
-            <div class="col-md-4">
-              <div onclick="bukaKelas('8')" class="subject-card">
+            <div class="col-md-4 item-kelas" data-name="kelas 8 geometri pola">
+              <div onclick="bukaKelas('8')" class="subject-card h-100">
                 <div
-                  class="icon-box"
-                  style="background: #dcfce7; color: #16a34a"
+                  class="icon-box bg-success bg-opacity-10 text-success p-3 rounded-4"
                 >
-                  <i class="fas fa-shapes"></i>
+                  <i class="fas fa-shapes fa-2x"></i>
                 </div>
                 <div>
                   <h5 class="fw-bold m-0">Kelas 8</h5>
-                  <small class="text-muted fw-bold">Geometri & Pola</small>
+                  <small class="text-muted">Geometri & Pola</small>
                 </div>
+                <i class="fas fa-chevron-right ms-auto text-muted"></i>
               </div>
             </div>
-            <div class="col-md-4">
-              <div onclick="bukaKelas('9')" class="subject-card">
+            <div
+              class="col-md-4 item-kelas"
+              data-name="kelas 9 statistika peluang"
+            >
+              <div onclick="bukaKelas('9')" class="subject-card h-100">
                 <div
-                  class="icon-box"
-                  style="background: #ffedd5; color: #ea580c"
+                  class="icon-box bg-warning bg-opacity-10 text-warning p-3 rounded-4"
                 >
-                  <i class="fas fa-chart-pie"></i>
+                  <i class="fas fa-chart-pie fa-2x"></i>
                 </div>
                 <div>
                   <h5 class="fw-bold m-0">Kelas 9</h5>
-                  <small class="text-muted fw-bold">Statistika & Peluang</small>
+                  <small class="text-muted">Statistika & Peluang</small>
                 </div>
+                <i class="fas fa-chevron-right ms-auto text-muted"></i>
               </div>
             </div>
+          </div>
+          <div id="noResult" class="text-center mt-4 d-none text-muted">
+            Materi tidak ditemukan.
           </div>
         </div>
       </div>
     </div>
 
-    <div id="page-belajar" class="page-section">
-      <nav class="navbar navbar-light bg-white sticky-top shadow-sm">
-        <div class="container py-2">
+    <div id="page-belajar" class="page-section fade-in">
+      <nav class="navbar bg-white shadow-sm sticky-top">
+        <div class="container py-1">
           <button
             onclick="pindahHalaman('dashboard')"
-            class="btn btn-outline-dark rounded-pill fw-bold"
+            class="btn btn-light rounded-pill fw-bold border"
           >
             <i class="fas fa-arrow-left me-2"></i> Kembali
           </button>
-          <span class="navbar-brand mb-0 h1 fw-bold text-primary ms-3"
+          <span
+            class="navbar-brand fw-bold text-primary mx-auto d-none d-md-block"
             >MATERI KELAS <span id="labelKelas">7</span></span
           >
-          <div class="ms-auto">
-            <img src="logo.png" height="40" alt="Logo" />
-          </div>
+          <img src="logo.png" height="35" alt="Logo" />
         </div>
       </nav>
 
       <div class="container py-4">
-        <div class="d-flex justify-content-center mb-5">
-          <div class="nav nav-pills">
+        <div class="d-flex justify-content-center mb-4 slide-up">
+          <div class="nav nav-pills bg-white p-2 rounded-pill shadow-sm">
             <a
               onclick="gantiTab('materi')"
               id="tab-materi"
               class="nav-link active"
-              ><i class="fas fa-book-open me-2"></i> Materi PDF</a
+              ><i class="fas fa-book me-2"></i> Materi</a
             >
             <a onclick="gantiTab('video')" id="tab-video" class="nav-link"
-              ><i class="fas fa-play-circle me-2"></i> Video</a
+              ><i class="fas fa-play me-2"></i> Video</a
             >
             <a onclick="gantiTab('kuis')" id="tab-kuis" class="nav-link"
-              ><i class="fas fa-pencil-alt me-2"></i> Kuis</a
+              ><i class="fas fa-pen me-2"></i> Kuis</a
             >
           </div>
         </div>
 
-        <div id="konten-materi" class="tab-content active">
-          <div class="content-card">
-            <h4 class="fw-bold text-dark">Modul Bilangan Bulat</h4>
-            <p class="text-muted small">
-              Konsep dasar operasi hitung bilangan bulat.
-            </p>
-            <div
-              class="d-flex align-items-center gap-3 p-3 bg-light rounded border"
-            >
-              <i class="fas fa-file-pdf text-danger fa-3x"></i>
+        <div id="konten-materi" class="tab-content active slide-up">
+          <div class="content-card bg-white">
+            <div class="d-flex justify-content-between align-items-start">
               <div>
-                <h6 class="fw-bold mb-0">Dokumen PDF</h6>
-                <small>Format PDF • Siap Unduh</small>
+                <span class="badge bg-primary mb-2">Modul PDF</span>
+                <h4 class="fw-bold">Bilangan Bulat & Pecahan</h4>
+                <p class="text-muted">
+                  Memahami operasi hitung dasar matematika.
+                </p>
               </div>
-              <button class="btn btn-primary rounded-pill ms-auto px-4 fw-bold">
-                Download
-              </button>
+              <i class="fas fa-book-open fa-3x text-light"></i>
             </div>
+            <hr />
+            <button
+              onclick="showToast('Mengunduh Modul...')"
+              class="btn btn-outline-primary w-100 rounded-pill fw-bold"
+            >
+              <i class="fas fa-download me-2"></i> Download PDF
+            </button>
           </div>
-          <div class="content-card">
-            <h4 class="fw-bold text-dark">Modul Aljabar Dasar</h4>
-            <p class="text-muted small">Pengenalan variabel dan koefisien.</p>
-            <div
-              class="d-flex align-items-center gap-3 p-3 bg-light rounded border"
-            >
-              <i class="fas fa-file-pdf text-danger fa-3x"></i>
+          <div class="content-card bg-white">
+            <div class="d-flex justify-content-between align-items-start">
               <div>
-                <h6 class="fw-bold mb-0">Dokumen PDF</h6>
-                <small>Format PDF • Siap Unduh</small>
+                <span class="badge bg-primary mb-2">Modul PDF</span>
+                <h4 class="fw-bold">Aljabar Linear Dasar</h4>
+                <p class="text-muted">
+                  Pengenalan variabel x dan y serta konstanta.
+                </p>
               </div>
-              <button class="btn btn-primary rounded-pill ms-auto px-4 fw-bold">
-                Download
-              </button>
+              <i class="fas fa-calculator fa-3x text-light"></i>
             </div>
+            <hr />
+            <button
+              onclick="showToast('Mengunduh Modul...')"
+              class="btn btn-outline-primary w-100 rounded-pill fw-bold"
+            >
+              <i class="fas fa-download me-2"></i> Download PDF
+            </button>
           </div>
         </div>
 
-        <div id="konten-video" class="tab-content">
-          <div class="content-card">
-            <h4 class="fw-bold text-dark mb-3">Garis dan Sudut</h4>
+        <div
+          id="konten-video"
+          class="tab-content slide-up"
+          style="display: none"
+        >
+          <div class="content-card bg-white p-0 overflow-hidden">
             <div class="video-container">
               <iframe
-                src="https://www.youtube.com/embed/q4P886hrFeE?si=Vvp6Eo1ypP57w1sZ"
+                src="https://www.youtube.com/embed/q4P886hrFeE"
                 allowfullscreen
               ></iframe>
             </div>
+            <div class="p-4">
+              <h5 class="fw-bold">Video: Garis dan Sudut</h5>
+              <p class="text-muted m-0">
+                Penjelasan visual mengenai hubungan antar sudut.
+              </p>
+            </div>
           </div>
-          <div class="content-card">
-            <h4 class="fw-bold text-dark mb-3">Persamaan Linear 1 Variabel</h4>
+          <div class="content-card bg-white p-0 overflow-hidden">
             <div class="video-container">
               <iframe
                 src="https://www.youtube.com/embed/ZzIaRdq5kws"
                 allowfullscreen
               ></iframe>
             </div>
+            <div class="p-4">
+              <h5 class="fw-bold">Video: Persamaan Linear</h5>
+              <p class="text-muted m-0">
+                Cara mudah menyelesaikan persamaan 1 variabel.
+              </p>
+            </div>
           </div>
         </div>
 
-        <div id="konten-kuis" class="tab-content">
-          <div class="content-card">
-            <h4 class="fw-bold text-dark">Latihan Soal Harian</h4>
-            <p class="text-muted">Uji pemahamanmu tentang materi minggu ini.</p>
-            <div class="alert alert-warning border-0 d-flex align-items-center">
-              <i class="fas fa-clipboard-check fa-2x me-3 text-warning"></i>
-              <div>
-                <h6 class="fw-bold text-dark mb-0">Kuis Pilihan Ganda</h6>
-                <small>10 Soal • 20 Menit</small>
-              </div>
-              <a
-                href="https://forms.google.com"
-                target="_blank"
-                class="btn btn-warning text-dark fw-bold rounded-pill ms-auto px-4"
-                >Mulai</a
-              >
-            </div>
+        <div
+          id="konten-kuis"
+          class="tab-content slide-up"
+          style="display: none"
+        >
+          <div class="content-card bg-white text-center py-5">
+            <i class="fas fa-trophy fa-4x text-warning mb-3"></i>
+            <h3 class="fw-bold">Kuis Mingguan</h3>
+            <p class="text-muted px-4">
+              Uji kemampuanmu dengan mengerjakan 10 soal pilihan ganda.
+            </p>
+            <a
+              href="https://forms.google.com"
+              target="_blank"
+              class="btn btn-primary btn-lg rounded-pill px-5 shadow fw-bold"
+            >
+              Mulai Kuis Sekarang
+            </a>
           </div>
         </div>
       </div>
     </div>
 
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <script>
-      // 1. Fungsi Login Sederhana
-      function prosesLogin() {
+      // --- 1. LOGIN SIMULATION ---
+      function simulasiLogin() {
+        let btn = document.getElementById("btnLogin");
+        let text = document.getElementById("btnText");
+        let loader = document.getElementById("loader");
         let user = document.getElementById("username").value;
-        if (user == "") user = "Siswa";
-        document.getElementById("namaUser").innerText = user;
-        pindahHalaman("dashboard");
+
+        // Efek Loading
+        text.style.display = "none";
+        loader.style.display = "block";
+        btn.disabled = true;
+
+        setTimeout(() => {
+          // Selesai Loading
+          loader.style.display = "none";
+          text.style.display = "block";
+          btn.disabled = false;
+
+          // Set Nama
+          if (user == "") user = "Siswa";
+          document.getElementById("namaUser").innerText = user;
+
+          // Pindah Halaman & Notif
+          pindahHalaman("dashboard");
+          showToast("Berhasil Login! Selamat Belajar.");
+        }, 1500); // Delay 1.5 detik agar terasa nyata
       }
 
-      // 2. Fungsi Pindah Halaman (SPA Logic)
-      function pindahHalaman(halamanId) {
-        // Sembunyikan semua halaman
-        document
-          .querySelectorAll(".page-section")
-          .forEach((el) => el.classList.remove("active"));
-        // Tampilkan halaman yang dipilih
-        document.getElementById("page-" + halamanId).classList.add("active");
-        window.scrollTo(0, 0); // Scroll ke atas
+      // --- 2. NAVIGATION ---
+      function pindahHalaman(pageId) {
+        document.querySelectorAll(".page-section").forEach((el) => {
+          el.classList.remove("active");
+          el.classList.remove("fade-in"); // Reset animasi
+        });
+        let target = document.getElementById("page-" + pageId);
+        target.classList.add("active");
+        target.classList.add("fade-in"); // Trigger animasi
+        window.scrollTo(0, 0);
       }
 
-      // 3. Fungsi Logout
-      function logout() {
-        if (confirm("Yakin ingin keluar?")) {
-          pindahHalaman("login");
-          document.getElementById("username").value = "";
-          document.getElementById("password").value = "";
-        }
-      }
-
-      // 4. Fungsi Buka Kelas (Set Label & Pindah)
       function bukaKelas(kelas) {
         document.getElementById("labelKelas").innerText = kelas;
         pindahHalaman("belajar");
-        gantiTab("materi"); // Reset ke tab materi
+        gantiTab("materi");
       }
 
-      // 5. Fungsi Ganti Tab (Materi/Video/Kuis)
+      function logout() {
+        if (confirm("Yakin ingin keluar?")) {
+          document.getElementById("username").value = "";
+          document.getElementById("password").value = "";
+          pindahHalaman("login");
+          showToast("Anda telah logout.");
+        }
+      }
+
+      // --- 3. TABS LOGIC ---
       function gantiTab(tabName) {
-        // Reset tombol aktif
+        // Hilangkan semua active
         document
           .querySelectorAll(".nav-pills .nav-link")
           .forEach((el) => el.classList.remove("active"));
-        document.getElementById("tab-" + tabName).classList.add("active");
-
-        // Reset konten aktif
         document
           .querySelectorAll(".tab-content")
-          .forEach((el) => el.classList.remove("active"));
-        document.getElementById("konten-" + tabName).classList.add("active");
+          .forEach((el) => (el.style.display = "none"));
+
+        // Aktifkan yang dipilih
+        document.getElementById("tab-" + tabName).classList.add("active");
+
+        // Animasi Slide Up saat ganti tab
+        let content = document.getElementById("konten-" + tabName);
+        content.style.display = "block";
+        content.classList.remove("slide-up");
+        void content.offsetWidth; // Trigger reflow
+        content.classList.add("slide-up");
+      }
+
+      // --- 4. SEARCH FEATURE ---
+      function cariMateri() {
+        let input = document.getElementById("searchInput").value.toLowerCase();
+        let items = document.querySelectorAll(".item-kelas");
+        let found = false;
+
+        items.forEach((item) => {
+          let name = item.getAttribute("data-name");
+          if (name.includes(input)) {
+            item.style.display = "block";
+            found = true;
+          } else {
+            item.style.display = "none";
+          }
+        });
+
+        // Tampilkan pesan jika tidak ada hasil
+        document.getElementById("noResult").classList.toggle("d-block", !found);
+        document.getElementById("noResult").classList.toggle("d-none", found);
+      }
+
+      // --- 5. TOAST NOTIFICATION ---
+      function showToast(message) {
+        let toast = document.getElementById("toast");
+        document.getElementById("toastMsg").innerText = message;
+        toast.classList.add("show");
+        setTimeout(() => {
+          toast.classList.remove("show");
+        }, 3000);
       }
     </script>
-
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
   </body>
 </html>
